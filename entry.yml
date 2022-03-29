@@ -1,0 +1,14 @@
+---
+- hosts: localhost
+  tasks:
+    - name: run script and register output
+      script: ./generate.py
+      register: num
+
+    - name: save vars for future plays
+      set_stats:
+        data:
+          num: "{{ num.stdout_lines[0] }}"
+
+    - debug:
+        msg: "{{ num.stdout_lines[0] }}"
